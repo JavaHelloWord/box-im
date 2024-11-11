@@ -3,22 +3,21 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/im_platform?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
     username: root
-    password: naQRLdDPbGv2j7PX_
+    password: shASFiendsvng2d2F
   data:
     redis:
-      host: localhost
+      host: 127.0.0.1
       port: 6379
-      password: PmEpfRjpBnTN6CgW
 
 minio:
-  endpoint: http://127.0.0.1:9001 #内网地址
-  domain: https://www.boxim.online/file  #外网访问地址
-  accessKey: admin
-  secretKey: 3fBSt6AkgFuD77D6
+  endpoint: http://127.0.0.1:26767 #内网地址
+  accessKey: MinioAAfd4
+  secretKey: MISNGINREyudf34
   bucketName: box-im
   imagePath: image
   filePath: file
   videoPath: video
+  domain: http://49.235.111.188:26767
 
 webrtc:
   max-channel: 9 # 多人通话最大通道数量，最大不能超过16,建议值:4,9,16

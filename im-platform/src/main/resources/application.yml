@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 28998
 spring:
   profiles:
     active: dev # 环境 dev|test|prod

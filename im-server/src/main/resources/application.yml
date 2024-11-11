@@ -6,7 +6,7 @@ spring:
 
 websocket:
   enable: true
-  port: 8878
+  port: 20890
 
 tcpsocket:
   enable: false # 暂时不开启
