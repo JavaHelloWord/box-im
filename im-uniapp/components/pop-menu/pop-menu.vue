@@ -3,8 +3,7 @@
 		<view @longpress.stop="onLongPress($event)" @touchmove="onTouchMove" @touchend="onTouchEnd">
 			<slot></slot>
 		</view>
-		
-		<view v-if="isShowMenu" class="pop-menu" @tap="onClose()" @contextmenu.prevent=""></view>
+		<view v-if="isShowMenu" class="pop-menu" @touchstart="onClose()" @contextmenu.prevent=""></view>
 		<view v-if="isShowMenu" class="menu" :style="menuStyle">
 			<view class="menu-item"  v-for="(item) in items" :key="item.key"  @click.prevent="onSelectMenu(item)">
 				<uni-icons class="menu-icon" :type="item.icon" :style="itemStyle(item)" size="22"></uni-icons>
@@ -20,6 +19,7 @@
 		data() {
 			return {
 				isShowMenu : false,
+				isTouchMove: false,
 				style : ""
 			}
 		},
@@ -31,6 +31,7 @@
 		methods: {
 			onLongPress(e){
 				if(this.isTouchMove){
+					// 屏幕移动时不弹出
 					return;
 				}
 				uni.getSystemInfo({
@@ -57,6 +58,7 @@
 				})
 			},
 			onTouchMove(){
+				this.onClose();
 				this.isTouchMove = true;
 			},
 			onTouchEnd(){
@@ -89,7 +91,7 @@
 		width: 100%;
 		height: 100%;
 		background-color: #333;
-		z-index: 99;
+		z-index: 999;
 		opacity: 0.5;
 
 	}
@@ -100,7 +102,7 @@
 		border-radius: 7px;
 		overflow: hidden;
 		background-color: #f5f6ff;
-		z-index: 100;
+		z-index: 1000;
 		.menu-item {
 			height: 25px;
 			min-width: 150rpx;
@@ -116,6 +118,4 @@
 			}
 		}
 	}
-
-	
 </style>
