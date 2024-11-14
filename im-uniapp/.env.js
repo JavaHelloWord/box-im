@@ -2,8 +2,11 @@
 const ENV = "DEV";
 const UNI_APP = {}
 if(ENV=="DEV"){
-	UNI_APP.BASE_URL = "http://192.168.43.199:8888";
-	UNI_APP.WS_URL = "ws://192.168.43.199:8878/im";
+	// UNI_APP.BASE_URL = "http://49.235.111.188:28998";
+	// UNI_APP.WS_URL = "ws://49.235.111.188:20890/im";
+	
+	UNI_APP.BASE_URL = "http://127.0.0.1:28998";
+	UNI_APP.WS_URL = "ws://127.0.0.1:20890/im";
 	// H5 走本地代理解决跨域问题
 	// #ifdef H5
 		UNI_APP.BASE_URL = "/api";

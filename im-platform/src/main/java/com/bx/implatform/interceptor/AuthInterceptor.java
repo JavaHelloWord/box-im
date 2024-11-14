@@ -29,6 +29,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }
+        String requestURI = request.getRequestURI();
+        if(requestURI.contains("/upload") || requestURI.contains("/download")){
+            return true;
+        }
         //从 http 请求头中取出 token
         String token = request.getHeader("accessToken");
         if (StrUtil.isEmpty(token)) {
