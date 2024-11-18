@@ -9,13 +9,14 @@ import com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request;
 import com.dingtalk.api.response.OapiGettokenResponse;
 import com.dingtalk.api.response.OapiMessageCorpconversationAsyncsendV2Response;
 import com.taobao.api.ApiException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 public class DingdingMessageService {
 
 
@@ -29,8 +30,10 @@ public class DingdingMessageService {
             OapiGettokenResponse rsp = client.execute(req);
             JSONObject body = JSONUtil.parseObj(rsp.getBody());
             String accessToken = body.getStr("access_token");
+            DingTalkClient client2 = new DefaultDingTalkClient("https://oapi.dingtalk.com/topapi/message/corpconversation/asyncsend_v2");
             OapiMessageCorpconversationAsyncsendV2Request req2 = new OapiMessageCorpconversationAsyncsendV2Request();
             req2.setAgentId(3299813105L);
+            req2.setHttpMethod("GET");
             req2.setUseridList(String.join(",", userIdList));
             OapiMessageCorpconversationAsyncsendV2Request.Msg obj1 = new OapiMessageCorpconversationAsyncsendV2Request.Msg();
             obj1.setMsgtype("text");
@@ -38,12 +41,24 @@ public class DingdingMessageService {
             obj2.setContent(msg);
             obj1.setText(obj2);
             req2.setMsg(obj1);
-            OapiMessageCorpconversationAsyncsendV2Response rsp2 = client.execute(req2, accessToken);
+            OapiMessageCorpconversationAsyncsendV2Response rsp2 = client2.execute(req2, accessToken);
 
         } catch (ApiException e) {
+
+            log.error("发送消息失败, ===========");
             e.printStackTrace();
         }
 
+
+    }
+
+    public static void main(String[] args) {
+        DingdingMessageService service = new DingdingMessageService();
+        userIdList.add("manager4208");
+//        userIdList.add("112064455529210382");
+//        userIdList.add("356025500829107528");
+
+        service.sendMessage("测试消息");
     }
 
     public String update(String newIds, boolean clear){

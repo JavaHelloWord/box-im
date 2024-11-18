@@ -1,5 +1,6 @@
 package com.bx.implatform.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.bx.implatform.dto.DingMessageDTO;
 import com.bx.implatform.dto.GroupMessageDTO;
 import com.bx.implatform.result.Result;
@@ -36,7 +37,14 @@ public class GroupMessageController {
     @Operation(summary = "发送群聊消息", description = "发送群聊消息")
     public Result<GroupMessageVO> sendMessage(@Valid @RequestBody GroupMessageDTO vo) {
         if(vo.getReceipt()!=null && vo.getReceipt()){
-            dingdingMessageService.sendMessage(vo.getContent());
+            if(StrUtil.isNotEmpty(vo.getContent())){
+                String replace = vo.getContent().replace("回执消息", "工作通知");
+                if(replace.length() > 12){
+                    replace = replace.substring(0, 12) + "...";
+                }
+                dingdingMessageService.sendMessage(replace);
+            }
+
         }
         return ResultUtils.success(groupMessageService.sendMessage(vo));
     }
