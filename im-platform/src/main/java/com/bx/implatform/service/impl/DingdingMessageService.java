@@ -1,5 +1,6 @@
 package com.bx.implatform.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.dingtalk.api.DefaultDingTalkClient;
@@ -57,7 +58,13 @@ public class DingdingMessageService {
         userIdList.add("manager4208");
 //        userIdList.add("112064455529210382");
 //        userIdList.add("356025500829107528");
-
+        String msg = "【回执消息】测试回执消息通知。";        if(StrUtil.isNotEmpty(msg)){
+            String replace =msg.replace("回执消息", "工作通知");
+            if(replace.length() > 12){
+                replace = replace.substring(0, 12) + "...";
+            }
+            service.sendMessage(replace);
+        }
         service.sendMessage("测试消息");
     }
 
