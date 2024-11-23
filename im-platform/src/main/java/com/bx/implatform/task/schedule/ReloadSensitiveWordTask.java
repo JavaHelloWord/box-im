@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @version: 1.0
  */
 @Slf4j
-@Component
+//@Component
 @RequiredArgsConstructor
 public class ReloadSensitiveWordTask {
 
